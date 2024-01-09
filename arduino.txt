@@ -1,0 +1,94 @@
+#include <SPI.h>
+#include <Ethernet.h>
+
+byte mac[] = {};
+IPAddress ip(192, 168, 1, 177);
+
+EthernetServer server(8080);
+
+const int IN1 = 5;
+const int IN2 = 3;
+const int PWM = 6;
+bool shouldTurnRight = false;
+bool shouldTurnLeft = false;
+
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(PWM, OUTPUT);
+
+  Serial.begin(9600);
+  Ethernet.begin(mac, ip);
+  server.begin();
+  Serial.println("Server started");
+}
+
+void loop() {
+  EthernetClient client = server.available();
+
+  if (client) {
+    Serial.println("Client connected");
+    while (client.connected()) {
+      if (client.available()) {
+        String command = client.readStringUntil('\n');
+        Serial.println("Received command: " + command);
+
+        if (command == "turnright") {
+          Serial.println("Received command2: " + command);
+          shouldTurnRight = true;
+        } else if (command == "turnleft") {
+          Serial.println("Received command2: " + command);
+          shouldTurnLeft = true;
+        }
+        client.stop();
+        // Check if we should turn right
+        if (shouldTurnRight) {
+          turn_right();
+          shouldTurnRight = false; // Reset the flag
+        }
+
+        // Check if we should turn left
+        if (shouldTurnLeft) {
+          turn_left();
+          shouldTurnLeft = false; // Reset the flag
+        }        
+
+
+      }
+    }
+    Serial.println("Client disconnected");
+  }
+}
+
+void turn_right() {
+  Motor_Forward(200); // Forward, PWM setting 0-255
+  delay(2000);
+  Motor_Brake();
+}
+
+void turn_left() {
+  Motor_Backward(200); // Forward, PWM setting 0-255
+  delay(2000);
+  Motor_Brake();
+}
+
+void Motor_Forward(int Speed) {
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  analogWrite(PWM, Speed);
+}
+
+void Motor_Backward(int Speed) {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  analogWrite(PWM, Speed);
+}
+
+void Motor_Brake() {
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+}
+
+
+
