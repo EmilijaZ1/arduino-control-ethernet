@@ -1,0 +1,22 @@
+import { SerialPort } from "serialport";
+import { ReadlineParser } from '@serialport/parser-readline';
+
+const portA = new SerialPort({
+  path: 'COM3',
+  baudRate: 9600,
+  stopBits: 1,
+  parity: 'none',
+});
+
+const parser = portA.pipe(new ReadlineParser({ delimiter: '\n' }));
+
+// Read the port data
+portA.on("open", () => {
+  console.log('serial port open');
+});
+
+parser.on('data', data =>{
+  console.log('got word from arduino:', data);
+});
+
+

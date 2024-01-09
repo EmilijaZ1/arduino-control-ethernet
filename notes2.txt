@@ -1,0 +1,45 @@
+  +-------------------+         +-------------------+        +---------------------+
+  |   Arduino Uno     |         |   AWS Lambda      |        |   Web Browser       |
+  |    with Ethernet   |         |   Function        |        |    with Fetch API    |
+  |    Shield &        |         |                   |        |    HTML, CSS, JS     |
+  | Cellular Modem     |         |                   |        |                     |
+  +-------------------+         +-------------------+        +---------------------+
+            |                              |                             |
+            |   HTTP Requests & Responses  |                             |
+            | ---------------------------->|                             |
+            |                              |                             |
+            |                              |                             |
+            |    Control Commands         |                             |
+            | ---------------------------->|                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |                             |
+            |                              |    HTTP Requests           |
+            |                              | -------------------------->|
+            |                              |                             |
+            |                              |    Invoke Lambda Function  |
+            |                              | -------------------------->|
+            |                              |                             |
+            |                              |    Lambda Processing       |
+            |                              | <--------------------------|
+            |                              |                             |
+            |                              |    HTTP Response           |
+            |                              | <--------------------------|
+            |                              |                             |
+  +-------------------+         +-------------------+        +---------------------+
+  |   Arduino Uno     |         |   AWS Lambda      |        |   Web Browser       |
+  |    with Ethernet   |         |   Function        |        |    with Fetch API    |
+  |    Shield &        |         |                   |        |    HTML, CSS, JS     |
+  | Cellular Modem     |         |                   |        |                     |
+  +-------------------+         +-------------------+        +---------------------+
