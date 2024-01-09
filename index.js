@@ -70,8 +70,8 @@ app.get("/about", (req,res) => {
     res.render("about.ejs");
 })
 
-app.get("/create", (req,res) => {
-  res.render("create.ejs");
+app.get("/control", (req,res) => {
+  res.render("control.ejs");
 })
 
 
@@ -79,9 +79,9 @@ app.get("/contact", (req,res) => {
     res.render("contact.ejs");
 })
 
-app.post("/create", (req, res) => {
+app.post("/control", (req, res) => {
   if (userIsAuthorised) {
-      res.render("create.ejs");
+      res.render("control.ejs");
       } else {
       res.redirect("/");
       }
